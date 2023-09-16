@@ -16,3 +16,33 @@ describe("get matches", () => {
     expect(matches.length).toBeGreaterThan(0);
   });
 });
+
+describe("club information", () => {
+  it("get club information", async () => {
+    const { data } = await api.getClubInformation({
+      queries: { teamPermanentId },
+    });
+
+    expect(data?.club).toBeDefined();
+    expect(data?.club?.name).toBe("TSC Zeuzleben");
+    expect(data?.club?.logoPublic).toBeTypeOf("boolean");
+  });
+
+  it("get club information with wrong teamPermanentId", async () => {
+    const getClubinfo = async () =>
+      await api.getClubInformation({
+        queries: { teamPermanentId: "aaaabaaaacaaaabaaaacaaaabaaaac12" },
+      });
+
+    expect(getClubinfo).rejects.toThrowError("Expected object, received null");
+  });
+
+  it("get club information with wrong length teamPermanentId", async () => {
+    const getClubinfo = async () =>
+      await api.getClubInformation({
+        queries: { teamPermanentId: "wrongLength" },
+      });
+
+    expect(getClubinfo).rejects.toThrowError("Invalid Query parameter");
+  });
+});

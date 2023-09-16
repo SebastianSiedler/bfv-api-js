@@ -37,13 +37,41 @@ const Match = z
     prePublished: z.boolean(),
   })
   .passthrough();
+const ClubInformation = z
+  .object({
+    id: z.string(),
+    name: z.string(),
+    logoUrl: z.string(),
+    logoPublic: z.boolean(),
+  })
+  .passthrough();
 
 export const schemas = {
   Team,
   Match,
+  ClubInformation,
 };
 
 const endpoints = makeApi([
+  {
+    method: "get",
+    path: "/club/info",
+    alias: "getClubInformation",
+    requestFormat: "json",
+    parameters: [
+      {
+        name: "teamPermanentId",
+        type: "Query",
+        schema: z.string().min(32).max(32),
+      },
+    ],
+    response: z
+      .object({
+        data: z.object({ club: ClubInformation }).partial().passthrough(),
+      })
+      .partial()
+      .passthrough(),
+  },
   {
     method: "get",
     path: "/team/:teamPermanentId/matches",
@@ -53,7 +81,7 @@ const endpoints = makeApi([
       {
         name: "teamPermanentId",
         type: "Path",
-        schema: z.string(),
+        schema: z.string().min(32).max(32),
       },
     ],
     response: z
