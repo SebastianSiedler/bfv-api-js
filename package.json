@@ -1,0 +1,45 @@
+{
+  "name": "bfv-api-js",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "generate": "pnpm openapi-zod-client \"./bfv_schema.yaml\" -o \"./src/client.ts\" --base-url \"https://widget-prod.bfv.de/api/service/widget/v1\"",
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "release": "pnpm run build && changeset publish",
+    "lint": "tsc",
+    "test": "pnpm generate && vitest run"
+  },
+  "keywords": [
+    "some",
+    "keywords",
+    "to",
+    "describe",
+    "the",
+    "package"
+  ],
+  "author": "",
+  "description": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SebastianSiedler/bfv_api"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@changesets/cli": "^2.26.2",
+    "@types/node": "^20.4.9",
+    "openapi-zod-client": "^1.8.0",
+    "tsup": "^7.2.0",
+    "typescript": "^5.1.6",
+    "vite": "^4.4.6",
+    "vitest": "^0.33.0"
+  },
+  "dependencies": {
+    "@zodios/core": "^10.9.2",
+    "zod": "^3.21.4"
+  }
+}
