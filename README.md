@@ -4,9 +4,14 @@ This is an unofficial JavaScript/Typescript client for the BFV API. This project
 
 ## Installation
 
-`pnpm add bfv-api`
+```
+pnpm add bfv-api
+```
 
 ## Usage
+
+The `teamPermanentId` can be found in the URL on the official web page of your team
+(`https://www.bfv.de/mannschaften/<my-team-name>/<team-permanent-id>`)
 
 ```ts
 import { bfvApi } from "bfv-api";
