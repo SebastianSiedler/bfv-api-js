@@ -1,4 +1,4 @@
-import { api } from "../client";
+import { api } from "../src/client";
 import { describe, expect, it } from "vitest";
 
 const teamPermanentId = "016PD5QT70000000VV0AG811VTE5EA5R";
