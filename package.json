@@ -12,12 +12,10 @@
     "test": "pnpm generate && vitest run"
   },
   "keywords": [
-    "some",
-    "keywords",
-    "to",
-    "describe",
-    "the",
-    "package"
+    "bfv",
+    "api",
+    "typescript",
+    "zod"
   ],
   "author": "",
   "description": "",
