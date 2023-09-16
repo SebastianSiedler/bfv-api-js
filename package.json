@@ -1,6 +1,6 @@
 {
-  "name": "bfv-api-js",
-  "version": "0.0.1",
+  "name": "bfv-api",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -12,19 +12,17 @@
     "test": "pnpm generate && vitest run"
   },
   "keywords": [
-    "some",
-    "keywords",
-    "to",
-    "describe",
-    "the",
-    "package"
+    "bfv",
+    "api",
+    "typescript",
+    "zod"
   ],
   "author": "",
   "description": "",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SebastianSiedler/bfv_api"
+    "url": "https://github.com/SebastianSiedler/bfv-api-js"
   },
   "files": [
     "dist"
@@ -41,5 +39,8 @@
   "dependencies": {
     "@zodios/core": "^10.9.2",
     "zod": "^3.21.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
