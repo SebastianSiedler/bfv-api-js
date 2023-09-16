@@ -1,0 +1,191 @@
+openapi: 3.0.3
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: |-
+    This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about
+    Swagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!
+    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
+    That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
+
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: MIT
+  version: 0.0.1
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: https://widget-prod.bfv.de/api/service/widget/v1
+tags:
+  - name: matches
+    description: list of all matches
+
+paths:
+  /team/{teamPermanentId}/matches:
+    get:
+      summary: List all matches
+      operationId: listMatches
+      tags:
+        - matches
+      parameters:
+        - name: teamPermanentId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                required:
+                  - state
+                  - message
+                  - data
+                type: object
+                properties:
+                  state:
+                    type: number
+                  message:
+                    nullable: true
+                    example: null
+                  data:
+                    required:
+                      - team
+                      - matches
+                    type: object
+                    properties:
+                      team:
+                        $ref: "#/components/schemas/Team"
+                      matches:
+                        type: array
+                        items: { $ref: "#/components/schemas/Match" }
+
+components:
+  schemas:
+    # begin match
+    Match:
+      required:
+        - matchId
+        - compoundId
+        - competitionName
+        - competitionType
+        - teamType
+        - kickoffDate
+        - kickoffTime
+        - homeTeamName
+        - homeTeamPermanentId
+        - homeClubId
+        - homeLogoPrivate
+        - guestTeamName
+        - guestTeamPermanentId
+        - guestClubId
+        - guestLogoPrivate
+        - result
+        - tickerMatchId
+        - prePublished
+      type: object
+      properties:
+        matchId:
+          type: string
+          example: "02IL0J8IN0000000VS5489B4VS7CGIFK"
+          required: true
+        compoundId:
+          type: string
+          example: "02I9MHJUQ0000000VS5489B4VV6D53L9-D"
+          required: true
+        competitionName:
+          type: string
+          example: "FS/H/K-FS/RH/1"
+          required: true
+        competitionType:
+          type: string
+          example: "Freundschaftsspiele"
+        teamType:
+          type: string
+          example: "Herren"
+        kickoffDate:
+          type: string
+          format: date
+          example: "05.07.2022"
+        kickoffTime:
+          type: string
+          format: time
+          example: "19:00"
+        homeTeamName:
+          type: string
+          example: "(SG) TSV Oerlenbach I/ TSV Ebenhausen I"
+        homeTeamPermanentId:
+          type: string
+          example: "016PB8NBS8000000VV0AG80NVV8OQVTB"
+        homeClubId:
+          type: string
+          example: "00ES8GNLA8000000VV0AG08LVUPGND5I"
+        homeLogoPrivate:
+          type: boolean
+          example: false
+        guestTeamName:
+          type: string
+          example: "(SG) Zeuzleben/Stettbach"
+        guestTeamPermanentId:
+          type: string
+          example: "016PD5QT70000000VV0AG811VTE5EA5R"
+        guestClubId:
+          type: string
+          example: "00ES8GNLE0000009VV0AG08LVUPGND5I"
+        guestLogoPrivate:
+          type: boolean
+          example: false
+        result:
+          type: string
+          example: "4:0"
+        tickerMatchId:
+          type: string
+          nullable: true
+        prePublished:
+          type: boolean
+          example: false
+
+    # end Match
+
+    ####
+    ## BEGIN TEAM
+    ###
+    Team:
+      type: object
+      properties:
+        permanentId:
+          type: string
+        name:
+          type: string
+        typeName:
+          type: string
+        seasonId:
+          type: string
+        clubId:
+          type: string
+        clubName:
+          type: string
+        compoundId:
+          type: string
+        competitionName:
+          type: string
+        competitionBreadcrumb:
+          type: string
+      example:
+        permanentId: "016PD5QT70000000VV0AG811VTE5EA5R"
+        name: "(SG) Zeuzleben/Stettbach"
+        typeName: "Herren"
+        seasonId: "2223"
+        clubId: "00ES8GNLE0000009VV0AG08LVUPGND5I"
+        clubName: "TSC Zeuzleben"
+        compoundId: "02IFRATA18000000VS5489B4VUIHV7I0-G"
+        competitionName: "KK-Gr 1 SW"
+        competitionBreadcrumb: "Meisterschaften | Herren | Kreisklasse | Kreis Schweinfurt"
+
+    ###
+    # END TEAM
+    ###
