@@ -1,5 +1,11 @@
 # bfv-api-js
 
+## 1.3.0
+
+### Minor Changes
+
+- c97fd73: provide types for schemas as export
+
 ## 1.2.0
 
 ### Minor Changes
