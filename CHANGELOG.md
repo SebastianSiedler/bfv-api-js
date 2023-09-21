@@ -1,5 +1,11 @@
 # bfv-api-js
 
+## 1.2.0
+
+### Minor Changes
+
+- 703439f: match.team no longer partial. All keys required
+
 ## 1.1.0
 
 ### Minor Changes
