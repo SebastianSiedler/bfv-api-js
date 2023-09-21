@@ -180,6 +180,16 @@ components:
     ## BEGIN TEAM
     ###
     Team:
+      required:
+        - permanentId
+        - name
+        - typeName
+        - seasonId
+        - clubId
+        - clubName
+        - compoundId
+        - competitionName
+        - competitionBreadcrumb
       type: object
       properties:
         permanentId:

@@ -13,7 +13,6 @@ const Team = z
     competitionName: z.string(),
     competitionBreadcrumb: z.string(),
   })
-  .partial()
   .passthrough();
 const Match = z
   .object({
