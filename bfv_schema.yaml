@@ -134,12 +134,14 @@ components:
           example: "Herren"
         kickoffDate:
           type: string
+          nullable: true
           format: date
           example: "05.07.2022"
         kickoffTime:
           type: string
           format: time
           example: "19:00"
+          nullable: true
         homeTeamName:
           type: string
           example: "(SG) TSV Oerlenbach I/ TSV Ebenhausen I"
@@ -149,6 +151,7 @@ components:
         homeClubId:
           type: string
           example: "00ES8GNLA8000000VV0AG08LVUPGND5I"
+          nullable: true
         homeLogoPrivate:
           type: boolean
           example: false
@@ -161,6 +164,7 @@ components:
         guestClubId:
           type: string
           example: "00ES8GNLE0000009VV0AG08LVUPGND5I"
+          nullable: true
         guestLogoPrivate:
           type: boolean
           example: false
