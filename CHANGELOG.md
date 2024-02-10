@@ -1,5 +1,11 @@
 # bfv-api-js
 
+## 1.3.3
+
+### Patch Changes
+
+- 170e693: update dependencies
+
 ## 1.3.2
 
 ### Patch Changes
