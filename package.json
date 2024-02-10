@@ -28,17 +28,17 @@
     "dist"
   ],
   "devDependencies": {
-    "@changesets/cli": "^2.26.2",
-    "@types/node": "^20.8.2",
-    "openapi-zod-client": "^1.13.0",
-    "tsup": "^7.2.0",
-    "typescript": "^5.2.2",
-    "vite": "^4.4.9",
-    "vitest": "^0.34.6"
+    "@changesets/cli": "^2.27.1",
+    "@types/node": "^20.11.17",
+    "openapi-zod-client": "^1.15.1",
+    "tsup": "^8.0.2",
+    "typescript": "^5.3.3",
+    "vite": "^5.1.1",
+    "vitest": "^1.2.2"
   },
   "dependencies": {
     "@zodios/core": "^10.9.6",
-    "zod": "^3.22.2"
+    "zod": "^3.22.4"
   },
   "publishConfig": {
     "access": "public"

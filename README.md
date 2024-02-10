@@ -24,3 +24,7 @@ const { data } = await bfvApi.listMatches({ params: { teamPermanentId } });
 
 Update the [OpenAPI Schema](./bfv_schema.yaml) if the schema doesn't match anymore.
 Run `pnpm changeset` to create a new Changeset entry and automatically publish a new package on npm after the pull request was approved.
+
+Create a new branch an create PR to merge into `main`.
+When the `<feature>` -> `main` was approved a auto generated branch and PR with the changeset will be created.  
+If this PR also gets accepted, the new package will be published on NPM.
