@@ -1,5 +1,11 @@
 # bfv-api-js
 
+## 1.3.2
+
+### Patch Changes
+
+- 3f457da: make match attributes nullable
+
 ## 1.3.1
 
 ### Patch Changes
