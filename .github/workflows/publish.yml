@@ -24,6 +24,9 @@ jobs:
           node-version: 22.x
           cache: "pnpm"
 
+      - run: npm install -g npm@latest
+      - run: npm --version
+
       - run: pnpm install --frozen-lockfile
 
       - name: Create Release Pull Request or Publish
