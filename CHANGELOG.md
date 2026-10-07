@@ -1,5 +1,11 @@
 # bfv-api-js
 
+## 1.3.5
+
+### Patch Changes
+
+- 114bd99: Export createApiClient and schema type aliases, modernize TypeScript config, and fix npm publish workflow
+
 ## 1.3.4
 
 ### Patch Changes
