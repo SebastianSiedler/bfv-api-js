@@ -4,11 +4,20 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "scripts": {
     "generate": "pnpm openapi-zod-client \"./bfv_schema.yaml\" -o \"./src/client.ts\" --base-url \"https://widget-prod.bfv.de/api/service/widget/v1\"",
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "release": "pnpm run build && changeset publish",
-    "lint": "tsc",
+    "lint": "biome check && tsc",
+    "format": "biome format --write .",
+    "check": "biome check --write .",
     "test": "pnpm generate && vitest run"
   },
   "keywords": [
@@ -28,19 +37,21 @@
     "dist"
   ],
   "devDependencies": {
-    "@changesets/cli": "^2.27.1",
-    "@types/node": "^20.11.17",
-    "openapi-zod-client": "^1.15.1",
-    "tsup": "^8.0.2",
-    "typescript": "^5.3.3",
-    "vite": "^5.1.1",
-    "vitest": "^1.2.2"
+    "@biomejs/biome": "^2.5.15",
+    "@changesets/cli": "^3.0.3",
+    "@types/node": "^22.20.5",
+    "openapi-zod-client": "^1.18.3",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.3",
+    "vitest": "^5.0.3"
   },
   "dependencies": {
     "@zodios/core": "^10.9.6",
-    "zod": "^3.22.4"
+    "zod": "^3.25.76"
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "packageManager": "pnpm@12.8.1"
 }
