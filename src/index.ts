@@ -1,4 +1,4 @@
-import { z } from "zod";
+import type { z } from "zod";
 import { api as bfvApi, schemas as bfvSchemas } from "./client";
 
 export { bfvApi, bfvSchemas };

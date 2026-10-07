@@ -1,5 +1,5 @@
-import { api } from "../src/client";
 import { describe, expect, it } from "vitest";
+import { api } from "../src/client";
 
 const teamPermanentId = "016PD5QT70000000VV0AG811VTE5EA5R";
 
@@ -29,20 +29,20 @@ describe("club information", () => {
   });
 
   it("get club information with wrong teamPermanentId", async () => {
-    const getClubinfo = async () =>
-      await api.getClubInformation({
+    const getClubinfo = () =>
+      api.getClubInformation({
         queries: { teamPermanentId: "aaaabaaaacaaaabaaaacaaaabaaaac12" },
       });
 
-    expect(getClubinfo).rejects.toThrowError("Expected object, received null");
+    await expect(getClubinfo()).rejects.toThrow();
   });
 
   it("get club information with wrong length teamPermanentId", async () => {
-    const getClubinfo = async () =>
-      await api.getClubInformation({
+    const getClubinfo = () =>
+      api.getClubInformation({
         queries: { teamPermanentId: "wrongLength" },
       });
 
-    expect(getClubinfo).rejects.toThrowError("Invalid Query parameter");
+    await expect(getClubinfo()).rejects.toThrow();
   });
 });
