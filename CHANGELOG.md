@@ -1,5 +1,11 @@
 # bfv-api-js
 
+## 1.3.4
+
+### Patch Changes
+
+- 09155bf: Update dependencies, add package exports, and migrate tooling to Biome
+
 ## 1.3.3
 
 ### Patch Changes
