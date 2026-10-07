@@ -18,6 +18,7 @@
     "lint": "biome check && tsc",
     "format": "biome format --write .",
     "check": "biome check --write .",
+    "clean": "rm -rf dist",
     "test": "pnpm generate && vitest run"
   },
   "keywords": [
@@ -26,8 +27,8 @@
     "typescript",
     "zod"
   ],
-  "author": "",
-  "description": "",
+  "author": "Sebastian Siedler",
+  "description": "Unofficial TypeScript/JavaScript client for the Bavarian Football Association (BFV) API",
   "license": "MIT",
   "repository": {
     "type": "git",
