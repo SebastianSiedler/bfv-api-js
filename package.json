@@ -52,7 +52,9 @@
     "zod": "^3.25.76"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "provenance": true
   },
   "packageManager": "pnpm@12.8.1"
 }
