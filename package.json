@@ -14,7 +14,7 @@
   "scripts": {
     "generate": "pnpm openapi-zod-client \"./bfv_schema.yaml\" -o \"./src/client.ts\" --base-url \"https://widget-prod.bfv.de/api/service/widget/v1\"",
     "build": "tsup src/index.ts --format cjs,esm --dts",
-    "release": "pnpm run build && npm publish --access public --provenance --verbose",
+    "release": "pnpm run build && pnpm changeset publish",
     "lint": "biome check && tsc",
     "format": "biome format --write .",
     "check": "biome check --write .",

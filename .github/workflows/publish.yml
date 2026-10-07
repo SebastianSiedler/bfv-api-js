@@ -33,7 +33,7 @@ jobs:
         id: changesets
         uses: changesets/action@v2
         with:
-          publish-script: pnpm run release
+          publish: pnpm run release
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Dump npm debug logs on failure
