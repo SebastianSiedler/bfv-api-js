@@ -27,6 +27,10 @@ jobs:
       - run: npm install -g npm@latest
       - run: npm --version
 
+      - run: |
+          echo "ACTIONS_ID_TOKEN_REQUEST_URL is: ${ACTIONS_ID_TOKEN_REQUEST_URL:-UNSET}"
+          echo "ACTIONS_ID_TOKEN_REQUEST_TOKEN length: ${#ACTIONS_ID_TOKEN_REQUEST_TOKEN}"
+
       - run: pnpm install --frozen-lockfile
 
       - name: Create Release Pull Request or Publish
@@ -35,3 +39,11 @@ jobs:
         with:
           publish-script: pnpm run release
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Dump npm debug logs on failure
+        if: failure()
+        run: |
+          for f in /home/runner/.npm/_logs/*.log; do
+            echo "=== $f ==="
+            cat "$f"
+          done
