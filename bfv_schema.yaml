@@ -1,28 +1,27 @@
 openapi: 3.0.3
 info:
-  title: Swagger Petstore - OpenAPI 3.0
+  title: BFV Widget API
   description: |-
-    This is an unofficial OpenAPI 3.0 Schema for the BFV API
-
-  termsOfService: http://swagger.io/terms/
-  contact:
-    email: apiteam@swagger.io
+    Unofficial OpenAPI 3.0 Schema for the Bavarian Football Association (BFV) Widget API.
   license:
     name: MIT
-  version: 0.0.1
-externalDocs:
-  description: Find out more about Swagger
-  url: http://swagger.io
+  version: 1.0.0
 servers:
   - url: https://widget-prod.bfv.de/api/service/widget/v1
 tags:
   - name: matches
-    description: list of all matches
+    description: List of team matches
+  - name: team
+    description: Team information
+  - name: club
+    description: Club information
+  - name: competition
+    description: Competition tables and information
 
 paths:
   /team/{teamPermanentId}/matches:
     get:
-      summary: List all matches
+      summary: List all matches for a team
       operationId: listMatches
       tags:
         - matches
@@ -36,7 +35,7 @@ paths:
             maxLength: 32
       responses:
         "200":
-          description: successful operation
+          description: Successful operation
           content:
             application/json:
               schema:
@@ -61,12 +60,61 @@ paths:
                         $ref: "#/components/schemas/Team"
                       matches:
                         type: array
-                        items: { $ref: "#/components/schemas/Match" }
+                        items:
+                          $ref: "#/components/schemas/Match"
+
+  /team/{teamPermanentId}/info:
+    get:
+      summary: Get Team Information
+      operationId: getTeamInformation
+      tags:
+        - team
+      parameters:
+        - name: teamPermanentId
+          in: path
+          required: true
+          schema:
+            type: string
+            minLength: 32
+            maxLength: 32
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state:
+                    type: number
+                  message:
+                    nullable: true
+                  data:
+                    type: object
+                    properties:
+                      team:
+                        type: object
+                        properties:
+                          permanentId:
+                            type: string
+                          name:
+                            type: string
+                      teamType:
+                        type: object
+                        properties:
+                          id:
+                            type: number
+                          name:
+                            type: string
+                      club:
+                        $ref: "#/components/schemas/ClubInformation"
 
   /club/info:
     get:
-      summary: Get Club Information
+      summary: Get Club Information by Team Permanent ID
       operationId: getClubInformation
+      tags:
+        - club
       parameters:
         - name: teamPermanentId
           in: query
@@ -83,15 +131,188 @@ paths:
               schema:
                 type: object
                 properties:
+                  state:
+                    type: number
+                  message:
+                    nullable: true
                   data:
                     type: object
                     properties:
                       club:
                         $ref: "#/components/schemas/ClubInformation"
+                      number:
+                        type: string
+
+  /club/{clubId}/info:
+    get:
+      summary: Get Club Information by Club ID
+      operationId: getClubInformationById
+      tags:
+        - club
+      parameters:
+        - name: clubId
+          in: path
+          required: true
+          schema:
+            type: string
+            minLength: 32
+            maxLength: 32
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state:
+                    type: number
+                  message:
+                    nullable: true
+                  data:
+                    type: object
+                    properties:
+                      club:
+                        $ref: "#/components/schemas/ClubInformation"
+                      number:
+                        type: string
+
+  /competition/{compoundId}/table:
+    get:
+      summary: Get Competition Table / Standings
+      operationId: getCompetitionTable
+      tags:
+        - competition
+      parameters:
+        - name: compoundId
+          in: path
+          required: true
+          schema:
+            type: string
+            minLength: 30
+            maxLength: 40
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state:
+                    type: number
+                  message:
+                    nullable: true
+                  data:
+                    type: object
+                    properties:
+                      compoundId:
+                        type: string
+                      competitionName:
+                        type: string
+                      comment:
+                        type: string
+                        nullable: true
+                      configuration:
+                        type: object
+                        properties:
+                          promotionTeamCount:
+                            type: number
+                          promotionPlayoffTeamCount:
+                            type: number
+                          relegationPlayoffTeamCount:
+                            type: number
+                          relegationTeamCount:
+                            type: number
+                      table:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/TableEntry"
+
+  /competition/{compoundId}/info:
+    get:
+      summary: Get Competition Information
+      operationId: getCompetitionInformation
+      tags:
+        - competition
+      parameters:
+        - name: compoundId
+          in: path
+          required: true
+          schema:
+            type: string
+            minLength: 30
+            maxLength: 40
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  state:
+                    type: number
+                  message:
+                    nullable: true
+                  data:
+                    type: object
+                    properties:
+                      compoundId:
+                        type: string
+                      competitionName:
+                        type: string
+                      competitionNumber:
+                        type: string
+                      competitionBreadcrumb:
+                        type: string
+                      adCode:
+                        type: string
+                      association:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          name:
+                            type: string
+                      season:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          name:
+                            type: string
+                      competitionType:
+                        type: object
+                        properties:
+                          id:
+                            type: number
+                          name:
+                            type: string
+                      teamType:
+                        type: object
+                        properties:
+                          id:
+                            type: number
+                          name:
+                            type: string
+                      leagueLevel:
+                        type: object
+                        properties:
+                          id:
+                            type: number
+                          name:
+                            type: string
+                      playingArea:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          name:
+                            type: string
 
 components:
   schemas:
-    # begin match
     Match:
       required:
         - matchId
@@ -117,15 +338,12 @@ components:
         matchId:
           type: string
           example: "02IL0J8IN0000000VS5489B4VS7CGIFK"
-          required: true
         compoundId:
           type: string
           example: "02I9MHJUQ0000000VS5489B4VV6D53L9-D"
-          required: true
         competitionName:
           type: string
           example: "FS/H/K-FS/RH/1"
-          required: true
         competitionType:
           type: string
           example: "Freundschaftsspiele"
@@ -135,54 +353,48 @@ components:
         kickoffDate:
           type: string
           nullable: true
-          format: date
-          example: "05.07.2022"
+          example: "01.07.2023"
         kickoffTime:
           type: string
-          format: time
-          example: "19:00"
           nullable: true
+          example: "16:00"
         homeTeamName:
           type: string
-          example: "(SG) TSV Oerlenbach I/ TSV Ebenhausen I"
+          example: "TSC Zeuzleben"
         homeTeamPermanentId:
           type: string
-          example: "016PB8NBS8000000VV0AG80NVV8OQVTB"
+          example: "016PD5QT70000000VV0AG811VTE5EA5R"
         homeClubId:
           type: string
-          example: "00ES8GNLA8000000VV0AG08LVUPGND5I"
           nullable: true
+          example: "00ES8GNLE0000009VV0AG08LVUPGND5I"
         homeLogoPrivate:
           type: boolean
           example: false
         guestTeamName:
           type: string
-          example: "(SG) Zeuzleben/Stettbach"
+          example: "TSV Schonungen"
         guestTeamPermanentId:
           type: string
-          example: "016PD5QT70000000VV0AG811VTE5EA5R"
+          example: "016PD5RR64000000VV0AG811VTE5EA5R"
         guestClubId:
           type: string
-          example: "00ES8GNLE0000009VV0AG08LVUPGND5I"
           nullable: true
+          example: "00ES8GNL40000004VV0AG08LVUPGND5I"
         guestLogoPrivate:
           type: boolean
           example: false
         result:
           type: string
-          example: "4:0"
+          example: "-:-"
         tickerMatchId:
           type: string
           nullable: true
+          example: null
         prePublished:
           type: boolean
           example: false
 
-    # end Match
-
-    ####
-    ## BEGIN TEAM
-    ###
     Team:
       required:
         - permanentId
@@ -216,18 +428,14 @@ components:
           type: string
       example:
         permanentId: "016PD5QT70000000VV0AG811VTE5EA5R"
-        name: "(SG) Zeuzleben/Stettbach"
+        name: "TSC Zeuzleben"
         typeName: "Herren"
-        seasonId: "2223"
+        seasonId: "2627"
         clubId: "00ES8GNLE0000009VV0AG08LVUPGND5I"
         clubName: "TSC Zeuzleben"
-        compoundId: "02IFRATA18000000VS5489B4VUIHV7I0-G"
-        competitionName: "KK-Gr 1 SW"
-        competitionBreadcrumb: "Meisterschaften | Herren | Kreisklasse | Kreis Schweinfurt"
-
-    ###
-    # END TEAM
-    ###
+        compoundId: "03135AVG8S000008VS5489BTVU7GTVLE-G"
+        competitionName: "KL-Gr1 SW"
+        competitionBreadcrumb: "Meisterschaften | Herren | Kreisliga | Kreis Schweinfurt"
 
     ClubInformation:
       required:
@@ -245,3 +453,32 @@ components:
           type: string
         logoPublic:
           type: boolean
+
+    TableEntry:
+      type: object
+      properties:
+        position:
+          type: number
+        matches:
+          type: number
+        matchesWon:
+          type: number
+        matchesDrawn:
+          type: number
+        matchesLost:
+          type: number
+        goalsDiff:
+          type: number
+        points:
+          type: number
+        trend:
+          type: number
+        live:
+          type: boolean
+        team:
+          type: object
+          properties:
+            permanentId:
+              type: string
+            name:
+              type: string

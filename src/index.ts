@@ -19,3 +19,4 @@ export type Schemas = {
 export type Team = Schemas["Team"];
 export type Match = Schemas["Match"];
 export type ClubInformation = Schemas["ClubInformation"];
+export type TableEntry = Schemas["TableEntry"];
